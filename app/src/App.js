@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+
+import "./App.css";
+
+const plugCoUrl = "http://www.plugco.in/public/take_home_sample_feed";
 
 function App() {
+  const [campaigns, setCampaigns] = useState([]);
+
+  useEffect(() => {
+    fetch(plugCoUrl)
+      .then(res => res.json())
+      .then(res => setCampaigns(res))
+      .catch(error => console.log(error));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      Hello
+      <div>menuIcon AppIcon</div>
     </div>
   );
 }
