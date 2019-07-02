@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import "./App.css";
 
-const plugCoUrl = "http://www.plugco.in/public/take_home_sample_feed";
+const plugCoUrl = "/public/take_home_sample_feed";
 
 function App() {
   const [campaigns, setCampaigns] = useState([]);
@@ -10,7 +10,7 @@ function App() {
   useEffect(() => {
     fetch(plugCoUrl)
       .then(res => res.json())
-      .then(res => setCampaigns(res))
+      .then(res => console.log(res))
       .catch(error => console.log(error));
   }, []);
 
@@ -18,6 +18,16 @@ function App() {
     <div className="App">
       Hello
       <div>menuIcon AppIcon</div>
+    </div>
+  );
+}
+
+function Campaign(data) {
+  return (
+    <div>
+      <div>
+        <img src={`${data.campaign_icon_url}`} alt="Icon" />
+      </div>
     </div>
   );
 }
