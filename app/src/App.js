@@ -14,9 +14,8 @@ function App() {
       .then(res => {
         setCampaigns(res.campaigns);
         setFetching(false);
-        console.log(fetching);
       })
-      .catch(error => console.log(error.message));
+      .catch(error => console.log(error));
   }, []);
 
   return (
@@ -36,6 +35,7 @@ function App() {
         {/* White/Blank spaceholder */}
         <img
           src={require("./images/play.png")}
+          alt=""
           style={{ maxWidth: "40px", maxHeight: "40px" }}
         />
       </div>
@@ -130,7 +130,7 @@ function CampaignVideo({ data, medium }) {
             <img
               className="campaign-body-cover-photo"
               src={`${medium.cover_photo_url}`}
-              alt="Cover Photo"
+              alt={`${data.campaign_name}-${data.id}-Cover`}
             />
           </div>
         ) : (
@@ -141,6 +141,7 @@ function CampaignVideo({ data, medium }) {
             controlsList="nodownload"
             muted
             preload="auto"
+            onClick={() => console.log(this)}
             style={{ width: "100px", height: "180px", borderRadius: "5px" }}
           />
         )}
@@ -148,7 +149,7 @@ function CampaignVideo({ data, medium }) {
 
       {/* Link & Download Icons */}
       <div className="campaign-body-icon-menu">
-        <a
+        <span
           style={{
             width: "50%",
             borderRight: "1px solid aliceblue"
@@ -162,7 +163,7 @@ function CampaignVideo({ data, medium }) {
             src={require("./images/link.png")}
             alt={medium.tracking_link}
           />
-        </a>
+        </span>
         <a
           href={medium.download_url}
           download={`${data.campaign_name}-${data.id}`}
