@@ -60,11 +60,15 @@ function App() {
         </div>
 
         {/* Campaigns */}
-        {fetching === true
-          ? "Loading..."
-          : campaigns.length === 0 && fetching === false
-          ? "Uh oh... Something went wrong. Please refresh."
-          : campaigns.map(campaign => <Campaign {...campaign} />)}
+        {fetching === true ? (
+          <div className="fetch-state">Loading...</div>
+        ) : campaigns.length === 0 && fetching === false ? (
+          <div className="fetch-state">
+            Uh oh... Something went wrong. Please pull down to refresh.
+          </div>
+        ) : (
+          campaigns.map(campaign => <Campaign {...campaign} />)
+        )}
       </ReactPullToRefresh>
     </div>
   );

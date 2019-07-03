@@ -8,6 +8,10 @@
   overflow-y: auto;
 }
 
+.fetch-state {
+  height: 90vh;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
