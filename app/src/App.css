@@ -3,7 +3,7 @@
   max-width: 375px;
   max-height: 812px;
   margin: 3rem auto;
-  /* border: 1px solid black; */
+  border: 1px solid lightgray;
   overflow-y: auto;
 }
 
@@ -34,16 +34,13 @@
   background-color: ghostwhite;
 }
 
-.campaign-body-cover-photo-video {
-  position: absolute;
-  background-color: rgba(1,1,1,1.0);
-  top: 30%;
-  left: 40%;
-  z-index: 1;
+.hidden {
+  display: none;
 }
 
-.hidden {
-  display: 'hidden';
+.video {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .campaign-body-cover-photo {

@@ -85,22 +85,30 @@ function Campaign(data) {
             style={{
               display: "flex",
               flexDirection: "column",
-              margin: "0.25rem",
-              position: "relative"
+              margin: "0.25rem"
             }}
           >
-            {/* <img
-              className={
-                medium.media_type === "video"
-                  ? "campaign-body-cover-photo-video"
-                  : "hidden"
-              }
-              src={require("./images/play.png")}
-            /> */}
-            <img
-              className="campaign-body-cover-photo"
-              src={`${medium.cover_photo_url}`}
-            />
+            <div style={{ position: "relative", borderRadius: "5px" }}>
+              <div
+                className={
+                  medium.media_type === "video"
+                    ? "campaign-body-cover-photo video"
+                    : "hidden"
+                }
+              >
+                <svg
+                  // className={medium.media_type !== "video" ? "hidden" : ""}
+                  viewBox="-150 -300 500 500"
+                  alt="Play video"
+                >
+                  <polygon points="70, 55 70, 145 145, 100" fill="#FFF" />
+                </svg>
+              </div>
+              <img
+                className="campaign-body-cover-photo"
+                src={`${medium.cover_photo_url}`}
+              />
+            </div>
 
             {/* Link & Download Icons */}
             <div className="campaign-body-icon-menu">
