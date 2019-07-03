@@ -1,51 +1,71 @@
 import React, { useState, useEffect } from "react";
 
-import "./App.css";
+import ReactPullToRefresh from "react-pull-to-refresh";
 
-const plugCoUrl = "/public/take_home_sample_feed";
+import "./App.css";
 
 function App() {
   const [campaigns, setCampaigns] = useState([]);
-  const [fetching, setFetching] = useState(true);
+  const [fetching, setFetching] = useState(false);
 
-  useEffect(() => {
+  let plugCoUrl = "/";
+
+  function fetchData() {
+    setFetching(true);
     fetch(plugCoUrl)
       .then(res => res.json())
       .then(res => {
+        // console.log(res);
         setCampaigns(res.campaigns);
-        setFetching(false);
+        // console.log(fetching);
       })
       .catch(error => console.log(error));
+    setFetching(false);
+  }
+
+  useEffect(() => {
+    fetchData();
   }, []);
+
+  function handleRefresh() {
+    plugCoUrl = "/public/take_home_sample_feed";
+    try {
+      fetchData();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className="App">
-      {/* NavBar */}
-      <div className="navbar">
-        <img
-          src={require("./images/hamburger-menu.png")}
-          alt="menu"
-          style={{ maxWidth: "20px", maxHeight: "20px", padding: "1rem" }}
-        />
-        <img
-          src={require("./images/plugco.png")}
-          alt="Plug Co"
-          style={{ maxWidth: "40px", maxHeight: "40px", margin: "0.5rem" }}
-        />
-        {/* White/Blank spaceholder */}
-        <img
-          src={require("./images/play.png")}
-          alt=""
-          style={{ maxWidth: "40px", maxHeight: "40px" }}
-        />
-      </div>
+      <ReactPullToRefresh onRefresh={handleRefresh}>
+        {/* NavBar */}
+        <div className="navbar">
+          <img
+            src={require("./images/hamburger-menu.png")}
+            alt="menu"
+            style={{ maxWidth: "20px", maxHeight: "20px", padding: "1rem" }}
+          />
+          <img
+            src={require("./images/plugco.png")}
+            alt="Plug Co"
+            style={{ maxWidth: "40px", maxHeight: "40px", margin: "0.5rem" }}
+          />
+          {/* White/Blank spaceholder */}
+          <img
+            src={require("./images/play.png")}
+            alt=""
+            style={{ maxWidth: "40px", maxHeight: "40px" }}
+          />
+        </div>
 
-      {/* Campaigns */}
-      {fetching === true
-        ? "Loading..."
-        : campaigns.length === 0 && fetching === false
-        ? "Uh oh... Something went wrong. Please refresh."
-        : campaigns.map(campaign => <Campaign {...campaign} />)}
+        {/* Campaigns */}
+        {fetching === true
+          ? "Loading..."
+          : campaigns.length === 0 && fetching === false
+          ? "Uh oh... Something went wrong. Please refresh."
+          : campaigns.map(campaign => <Campaign {...campaign} />)}
+      </ReactPullToRefresh>
     </div>
   );
 }
