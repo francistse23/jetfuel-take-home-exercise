@@ -30,7 +30,7 @@ function App() {
         <img
           src={require("./images/plugco.png")}
           alt="Plug Co"
-          style={{ maxWidth: "40px", maxHeight: "40px", margin: "1rem" }}
+          style={{ maxWidth: "40px", maxHeight: "40px", margin: "0.5rem" }}
         />
         {/* White/Blank spaceholder */}
         <img
@@ -101,7 +101,6 @@ function CampaignVideo({ data, medium }) {
 
   function playVideo(url) {
     const video = document.getElementById(`${url}-video`);
-    console.log(video);
     video.play();
   }
 
@@ -143,6 +142,7 @@ function CampaignVideo({ data, medium }) {
           alt={`${data.campaign_name}-${data.id}-Cover`}
         />
 
+        {/* video muted by default */}
         <video
           id={`${medium.download_url}-video`}
           className={
@@ -174,9 +174,13 @@ function CampaignVideo({ data, medium }) {
             alt={medium.tracking_link}
           />
         </span>
+        {/* temporary solution for download, download will not prompt if it's not the same origin */}
         <a
-          href={medium.download_url}
-          download={`${data.campaign_name}-${data.id}`}
+          href={medium.download_url.replace(
+            "https://firebasestorage.googleapis.com",
+            ""
+          )}
+          download
           style={{ width: "50%" }}
         >
           <img

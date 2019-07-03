@@ -28,5 +28,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://www.plugco.in, https://firebasestorage.googleapis.com"
+  "proxy": "http://localhost:3000"
 }
