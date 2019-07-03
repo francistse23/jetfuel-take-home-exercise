@@ -35,19 +35,24 @@
   background-color: ghostwhite;
 }
 
-.hidden {
-  display: none;
-}
-
-.video {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
-}
 
 .campaign-body-cover-photo {
   width: 100px;
   height: 180px;
   border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.video {
+  position: absolute;
 }
 
 .campaign-body-icon-menu {

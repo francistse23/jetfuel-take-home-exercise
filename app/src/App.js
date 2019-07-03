@@ -99,6 +99,12 @@ function CampaignVideo({ data, medium }) {
     document.body.removeChild(area);
   }
 
+  function playVideo(url) {
+    const video = document.getElementById(`${url}-video`);
+    console.log(video);
+    video.play();
+  }
+
   return (
     <div
       style={{
@@ -109,42 +115,46 @@ function CampaignVideo({ data, medium }) {
     >
       <div style={{ position: "relative", borderRadius: "5px" }}>
         {/* Play button overlay */}
-        {playState === "pause" ? (
-          <div>
-            <div
-              className={
-                medium.media_type === "video"
-                  ? "campaign-body-cover-photo video"
-                  : "hidden"
-              }
-            >
-              <svg
-                viewBox="-150 -350 500 500"
-                alt="Play video"
-                onClick={() => setPlayState("play")}
-              >
-                <polygon points="70, 55 70, 145 145, 100" fill="#FFF" />
-              </svg>
-            </div>
 
-            <img
-              className="campaign-body-cover-photo"
-              src={`${medium.cover_photo_url}`}
-              alt={`${data.campaign_name}-${data.id}-Cover`}
-            />
-          </div>
-        ) : (
-          <video
-            src={medium.download_url}
-            autoplay
-            controls
-            controlsList="nodownload"
-            muted
-            preload="auto"
-            onClick={() => console.log(this)}
-            style={{ width: "100px", height: "180px", borderRadius: "5px" }}
-          />
-        )}
+        <div
+          className={
+            medium.media_type === "video" && playState === "pause"
+              ? "campaign-body-cover-photo overlay"
+              : "hidden"
+          }
+        >
+          <svg
+            viewBox="-150 -350 500 500"
+            alt="Play video"
+            onClick={() => {
+              setPlayState("play");
+              playVideo(medium.download_url);
+            }}
+          >
+            <polygon points="70, 55 70, 145 145, 100" fill="#FFF" />
+          </svg>
+        </div>
+
+        <img
+          className={
+            playState === "pause" ? "campaign-body-cover-photo" : "hidden"
+          }
+          src={`${medium.cover_photo_url}`}
+          alt={`${data.campaign_name}-${data.id}-Cover`}
+        />
+
+        <video
+          id={`${medium.download_url}-video`}
+          className={
+            playState === "pause" ? "hidden" : "campaign-body-cover-photo"
+          }
+          src={medium.download_url}
+          autoplay
+          controls
+          controlsList="nodownload"
+          muted
+          preload="auto"
+        />
       </div>
 
       {/* Link & Download Icons */}
