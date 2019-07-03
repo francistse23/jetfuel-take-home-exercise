@@ -15,9 +15,7 @@ function App() {
     fetch(plugCoUrl)
       .then(res => res.json())
       .then(res => {
-        // console.log(res);
         setCampaigns(res.campaigns);
-        // console.log(fetching);
       })
       .catch(error => console.log(error));
     setFetching(false);
