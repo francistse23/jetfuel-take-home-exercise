@@ -3,35 +3,68 @@
   max-width: 375px;
   max-height: 812px;
   margin: 3rem auto;
-  border: 2px solid black;
+  border: 1px solid black;
+  overflow-y: auto;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+  border-bBottom: 3px solid ghostwhite;
 }
 
-.App-link {
-  color: #61dafb;
+.campaign-header {
+  display: flex;
+  border-bottom: 1px solid lightblue;
+  padding: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.campaign-icon {
+  max-width: 50px;
+  max-height: 50px;
+  border-radius: 10px;
+  margin-right: 0.5rem
+}
+
+.campaign-body {
+  display: flex;
+  overflow-x: auto;
+  padding: 0.5rem;
+  background-color: ghostwhite;
+}
+
+.campaign-body-cover-photo-video {
+  /* background-image: url('./images/play.png'); */
+  background: rgba(0,0,0,0.50);
+  z-index: 1;
+}
+
+.campaign-body-cover-photo {
+  width: 100px;
+  height: 180px;
+  border-radius: 5px;
+}
+
+.campaign-body-icon-menu {
+  display: flex;
+  justify-content: space-evenly;
+  background: white;
+  max-width: 100px;
+  margin: 0.5rem 0;
+  border: 2px solid aliceblue;
+  border-radius: 10px;
+}
+
+.campaign-body-icon {
+  height: 15px;
+  width: 15px;
+  margin: 0.5rem
+}
+
+.campaign-body-icon:hover {
+  cursor: pointer;
+}
+
+div > a {
+  cursor: pointer;
 }

@@ -16,7 +16,18 @@ function App() {
 
   return (
     <div className="App">
-      <div>menuIcon AppIcon</div>
+      {/* NavBar */}
+      <div className="navbar">
+        <img
+          src={require("./images/hamburger-menu.png")}
+          alt="menu"
+          style={{ maxWidth: "20px", maxHeight: "20px", padding: "1.5rem" }}
+        />
+        <img src={require("./images/plugco.png")} alt="Plug Co" />
+        <div style={{ border: "1px solid red" }} />
+      </div>
+
+      {/* Campaigns */}
       {campaigns.length === 0
         ? "Loading..."
         : campaigns.map(campaign => Campaign(campaign))}
@@ -25,20 +36,28 @@ function App() {
 }
 
 function Campaign(data) {
-  function copyLink() {}
+  function copyLink(id) {
+    const link = document.getElementById(`jetfuel-tracking-link-${id}`);
+    const range = document.createRange();
+    range.selectNode(link);
+    window.getSelection().addRange(range);
+    try {
+      document.execCommand("copy");
+      alert("Link Copied!");
+    } catch (err) {
+      console.log(err);
+    }
+    window.getSelection().removeAllRanges();
+  }
 
   return (
-    <div key={data.id} id={`jetfuel-exercise-${data.id}`}>
-      <div
-        style={{
-          display: "flex",
-          borderBottom: "1px solid gray"
-        }}
-      >
+    <div key={data.id}>
+      {/* Campaign info & pay per install */}
+      <div className="campaign-header">
         <img
-          style={{ maxWidth: "50px", maxHeight: "50px", borderRadius: "10px" }}
+          className="campaign-icon"
           src={`${data.campaign_icon_url}`}
-          alt="Icon"
+          alt="Campaign Icon"
         />
         <div
           style={{
@@ -47,36 +66,53 @@ function Campaign(data) {
             textAlign: "left"
           }}
         >
-          <h4>{data.campaign_name}</h4>
-          <h4>{data.pay_per_install} per install</h4>
+          <div style={{ fontWeight: 700 }}>{data.campaign_name}</div>
+          <div style={{ color: "green" }}>
+            <strong>{data.pay_per_install}</strong> per install
+          </div>
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          overflowX: "auto",
-          padding: "1rem",
-          backgroundColor: "ghostwhite"
-        }}
-      >
+      {/* Campaign body */}
+      <div className="campaign-body">
         {data.medias.map(medium => (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              margin: "0.25rem"
+            }}
+          >
             <img
-              style={{ maxWidth: "75px", maxHeight: "150px" }}
+              className={
+                medium.media_type === "video"
+                  ? "campaign-body-cover-photo-video campaign-body-cover-photo"
+                  : "campaign-body-cover-photo"
+              }
               src={`${medium.cover_photo_url}`}
             />
-            <div style={{ display: "flex" }}>
-              <img
-                src={require("./images/link.png")}
-                alt="Copy Link"
-                style={{ maxWidth: "25px", maxHeight: "25px" }}
-              />
-              <a href={`${medium.download_url}`} download>
+
+            {/* Link & Download Icons */}
+            <div className="campaign-body-icon-menu">
+              <a
+                style={{
+                  width: "50%",
+                  borderRight: "1px solid aliceblue"
+                }}
+              >
                 <img
+                  id={`jetfuel-tracking-link-${data.id}`}
+                  onClick={() => copyLink(data.id)}
+                  className="campaign-body-icon"
+                  src={require("./images/link.png")}
+                  alt={medium.tracking_link}
+                />
+              </a>
+              <a href={medium.download_url} download style={{ width: "50%" }}>
+                <img
+                  className="campaign-body-icon"
                   src={require("./images/download.png")}
                   alt="Download Media"
-                  style={{ maxWidth: "25px", maxHeight: "25px" }}
                 />
               </a>
             </div>
