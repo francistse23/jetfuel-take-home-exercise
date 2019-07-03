@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  /* using iPhone X scren size. can adjust for different screen sizes */
   max-width: 375px;
   max-height: 812px;
   margin: 3rem auto;
