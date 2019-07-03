@@ -21,10 +21,17 @@ function App() {
         <img
           src={require("./images/hamburger-menu.png")}
           alt="menu"
-          style={{ maxWidth: "20px", maxHeight: "20px", padding: "1.5rem" }}
+          style={{ maxWidth: "20px", maxHeight: "20px", padding: "1rem" }}
         />
-        <img src={require("./images/plugco.png")} alt="Plug Co" />
-        <div style={{ border: "1px solid red" }} />
+        <img
+          src={require("./images/plugco.png")}
+          alt="Plug Co"
+          style={{ maxWidth: "40px", maxHeight: "40px", margin: "1rem" }}
+        />
+        <img
+          src={require("./images/play.png")}
+          style={{ maxWidth: "40px", maxHeight: "40px" }}
+        />
       </div>
 
       {/* Campaigns */}
@@ -37,17 +44,15 @@ function App() {
 
 function Campaign(data) {
   function copyLink(id) {
-    const link = document.getElementById(`jetfuel-tracking-link-${id}`);
-    const range = document.createRange();
-    range.selectNode(link);
-    window.getSelection().addRange(range);
-    try {
-      document.execCommand("copy");
-      alert("Link Copied!");
-    } catch (err) {
-      console.log(err);
-    }
-    window.getSelection().removeAllRanges();
+    const area = document.createElement("textarea");
+    const link = document
+      .getElementById(`jetfuel-tracking-link-${id}`)
+      .getAttribute("value");
+    area.value = link;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    document.body.removeChild(area);
   }
 
   return (
@@ -80,15 +85,20 @@ function Campaign(data) {
             style={{
               display: "flex",
               flexDirection: "column",
-              margin: "0.25rem"
+              margin: "0.25rem",
+              position: "relative"
             }}
           >
-            <img
+            {/* <img
               className={
                 medium.media_type === "video"
-                  ? "campaign-body-cover-photo-video campaign-body-cover-photo"
-                  : "campaign-body-cover-photo"
+                  ? "campaign-body-cover-photo-video"
+                  : "hidden"
               }
+              src={require("./images/play.png")}
+            /> */}
+            <img
+              className="campaign-body-cover-photo"
               src={`${medium.cover_photo_url}`}
             />
 
@@ -99,10 +109,11 @@ function Campaign(data) {
                   width: "50%",
                   borderRight: "1px solid aliceblue"
                 }}
+                id={`jetfuel-tracking-link-${data.id}`}
+                onClick={() => copyLink(data.id)}
+                value={medium.tracking_link}
               >
                 <img
-                  id={`jetfuel-tracking-link-${data.id}`}
-                  onClick={() => copyLink(data.id)}
                   className="campaign-body-icon"
                   src={require("./images/link.png")}
                   alt={medium.tracking_link}

@@ -3,19 +3,20 @@
   max-width: 375px;
   max-height: 812px;
   margin: 3rem auto;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   overflow-y: auto;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
-  border-bBottom: 3px solid ghostwhite;
+  align-items: center;
+  border-bottom: 3px solid ghostwhite;
 }
 
 .campaign-header {
   display: flex;
-  border-bottom: 1px solid lightblue;
+  border-bottom: 1px solid ghostwhite;
   padding: 1rem;
 }
 
@@ -34,9 +35,15 @@
 }
 
 .campaign-body-cover-photo-video {
-  /* background-image: url('./images/play.png'); */
-  background: rgba(0,0,0,0.50);
+  position: absolute;
+  background-color: rgba(1,1,1,1.0);
+  top: 30%;
+  left: 40%;
   z-index: 1;
+}
+
+.hidden {
+  display: 'hidden';
 }
 
 .campaign-body-cover-photo {
